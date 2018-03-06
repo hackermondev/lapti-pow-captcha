@@ -1,0 +1,23 @@
+{
+  "name": "lapti-pow-captcha",
+  "version": "0.1.0",
+  "description": "Proof-of-Work captcha without external service calls",
+  "keywords": [
+    "captcha",
+    "pow",
+    "proof-of-work"
+  ],
+  "author": {
+    "name": "Phil Filippak",
+    "email": "xenohunter@yandex.ru",
+    "url": "https://github.com/xenohunter"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xenohunter/lapti-pow-captcha.git"
+  },
+  "dependencies": {
+    "js-sha3": "0.7.0"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Lapti PoW Captcha</title>
+
+    <!--TODO : set up a build and put these scripts into one file-->
+    <script src="./node_modules/js-sha3/build/sha3.min.js"></script>
+    <script src="./src/captcha.js"></script>
+
+</head>
+
+<body>
+
+    <div id="custom"></div>
+
+    <script>
+
+        var API_ROOT = 'http://localhost:8000';
+
+        var dataOne = '123456';
+
+        // If the `container` property is provided then captcha will render in its default view
+        // The `onComplete` callback will be called after finding a proof (and only if `container` is provided)
+        LaptiCaptcha.create({
+            apiUrl: API_ROOT,
+            data: dataOne,
+            container: 'custom',
+            onComplete: function (data, proof) {
+                console.log(proof);
+                fetch(API_ROOT + '/action/' + dataOne + '/' + proof).then(function (res) {
+                    res.json().then(function (data) {
+                        console.log(data);
+                    });
+                });
+            }
+        });
+
+        var dataTwo = 'yet_another_example';
+
+        // Direct usage of the captcha API
+        var second = LaptiCaptcha.create({
+            apiUrl: API_ROOT,
+            data: dataTwo
+        });
+
+        // Run it and you can subscribe to the finding of a proof
+        second.run().then(function (proof) {
+            console.log(proof);
+            fetch(API_ROOT + '/action/' + dataTwo + '/' + proof).then(function (res) {
+                res.json().then(function (data) {
+                    console.log(data);
+                });
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
