@@ -29,7 +29,9 @@ if (self.window) {
 
     (function () {
 
-        if (!window.fetch || !window.Promise || !window.Worker) {
+        var thisScriptSrc = document.currentScript.src;
+
+        if (!window.fetch || !window.Promise) {
             throw new Error('The browser is too old for that stuff!');
         }
 
@@ -52,7 +54,18 @@ if (self.window) {
             } else {
                 return this.handshake(this.data).then(function (res) {
                     if (res && res.token && res.complexity) {
-                        return prove(res.token, res.complexity); // TODO : Worker
+                        if (window.Worker) {
+                            // TODO : add multithreading
+                            return new Promise(function (resolve) {
+                                var worker = new Worker(thisScriptSrc);
+                                worker.onmessage = function (e) {
+                                    resolve(e.data.nonce);
+                                };
+                                worker.postMessage(res);
+                            });
+                        } else {
+                            return prove(res.token, res.complexity);
+                        }
                     } else {
                         throw new Error('Server response is invalid!');
                     }
@@ -147,5 +160,11 @@ if (self.window) {
         window.LaptiCaptcha = LaptiCaptcha;
 
     })();
+
+} else {
+
+    self.onmessage = function (e) {
+        self.postMessage({ nonce: prove(e.data.token, e.data.complexity) });
+    };
 
 }
