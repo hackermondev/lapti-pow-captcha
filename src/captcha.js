@@ -42,17 +42,6 @@
     }
 
     /**
-     * Sets of changes data attached to the captcha
-     * @param {string} data
-     * @return {Captcha}
-     */
-    Captcha.prototype.setData = function (data) {
-        // TODO : deny if captcha is running
-        this.data = data;
-        return this;
-    };
-
-    /**
      * @return {Promise<string>}
      */
     Captcha.prototype.run = function () {
