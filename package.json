@@ -1,6 +1,6 @@
 {
   "name": "lapti-pow-captcha",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Proof-of-Work captcha without external service calls",
   "keywords": [
     "captcha",
@@ -17,6 +17,7 @@
     "type": "git",
     "url": "https://github.com/xenohunter/lapti-pow-captcha.git"
   },
+  "main": "build/lapti-pow-captcha.min.js",
   "dependencies": {
     "js-sha3": "0.7.0"
   },
