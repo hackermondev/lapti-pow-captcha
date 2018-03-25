@@ -60,8 +60,11 @@ second.run().then(function (proof) {
 
 ## Test setup
 
-Start the server file with Node JS and open _index.html_ in browser.
+Start the server file with Node JS and run Gulp:
 
 ```
-node server/main.js
+node server/main.js &
+gulp
 ```
+
+When finished, open [http://localhost:8080](http://localhost:8080).
