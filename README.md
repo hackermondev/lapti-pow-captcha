@@ -1,4 +1,4 @@
-# Lapti Proof-of-Work Captcha
+# Lapti Proof-of-Work Captcha [![npm version](https://badge.fury.io/js/lapti-pow-captcha.svg)](https://www.npmjs.com/package/lapti-pow-captcha)
 
 Protect heavy API methods with the force of Proof-of-Work algorithms hosted locally.
 
