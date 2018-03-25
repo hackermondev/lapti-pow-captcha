@@ -122,10 +122,9 @@ if (self.window) {
                 }
 
                 var run = function () {
-                    var dampedData = captcha.data;
                     captcha.run().then(function (proof) {
                         container.innerHTML = 'Done!';
-                        props.onComplete(dampedData, proof);
+                        props.onComplete(captcha.data, proof);
                     });
                 };
 

@@ -14,17 +14,17 @@
 
         var API_ROOT = 'http://localhost:8000';
 
-        var dataOne = '123456';
 
         // If the `container` property is provided then captcha will render in its default view
         // The `onComplete` callback will be called after finding a proof (and only if `container` is provided)
+        var data = '123456';
         LaptiCaptcha.create({
             apiUrl: API_ROOT,
-            data: dataOne,
+            data: data,
             container: 'custom',
             onComplete: function (data, proof) {
                 console.log(proof);
-                fetch(API_ROOT + '/action/' + dataOne + '/' + proof).then(function (res) {
+                fetch(API_ROOT + '/action/' + data + '/' + proof).then(function (res) {
                     res.json().then(function (data) {
                         console.log(data);
                     });
@@ -32,18 +32,17 @@
             }
         });
 
-        var dataTwo = 'yet_another_example';
 
         // Direct usage of the captcha API
-        var second = LaptiCaptcha.create({
+        var captcha = LaptiCaptcha.create({
             apiUrl: API_ROOT,
-            data: dataTwo
+            data: 'yet_another_example'
         });
 
         // Run it and you can subscribe to the finding of a proof
-        second.run().then(function (proof) {
+        captcha.run().then(function (proof) {
             console.log(proof);
-            fetch(API_ROOT + '/action/' + dataTwo + '/' + proof).then(function (res) {
+            fetch(API_ROOT + '/action/' + captcha.data + '/' + proof).then(function (res) {
                 res.json().then(function (data) {
                     console.log(data);
                 });
