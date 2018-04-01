@@ -7,18 +7,40 @@
  */
 
 /**
+ * Transforms hash string into byte array
+ * @param {string} hex
+ * @return {Array}
+ */
+function parseHexString(hex) {
+    var bytes = [];
+    for (var c = 0; c < hex.length; c += 2) {
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+    }
+    return bytes;
+}
+
+/**
+ * Sums the values of a reduced array
+ * @param {number} acc
+ * @param {number} cur
+ * @return {number}
+ */
+function sum(acc, cur) {
+    return acc + cur;
+}
+
+/**
  * Proves the work by finding a hash H(token, nonce) which first chars match the complexity arg
  * @param {string} token
  * @param {number} complexity
  * @return {string}
  */
 function prove(token, complexity) {
-    var test = Array(complexity + 1).join('0');
     var nonce = 0;
     var result;
     while (++nonce) {
-        result = sha3_512(token + nonce);
-        if (result.slice(0, complexity) === test) {
+        result = parseHexString(sha3_512(token + nonce));
+        if (result.slice(0, complexity).reduce(sum, 0) === 0) {
             break;
         }
     }

@@ -12,7 +12,17 @@ const sha3_512 = require('js-sha3').sha3_512;
 const SECRET = 'qdqwj9d8h01k2jdas';
 
 // COMPLEXITY will affect the client-side check of a proof
-const COMPLEXITY = 4;
+const COMPLEXITY = 2;
+
+const parseHexString = (hex) => {
+    const bytes = [];
+    for (let c = 0; c < hex.length; c += 2) {
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+    }
+    return bytes;
+};
+
+const sum = (acc, cur) => acc + cur;
 
 const respond = (res, code, json) => {
     res.writeHead(code, {
@@ -41,9 +51,8 @@ const checkProof = (data, nonce, cb) => {
         if (!token) {
             cb(false);
         } else {
-            const test = Array(COMPLEXITY + 1).join('0');
-            const proof = sha3_512(token + nonce);
-            if (proof.slice(0, COMPLEXITY) === test) {
+            const proof = parseHexString(sha3_512(token + nonce));
+            if (proof.slice(0, COMPLEXITY).reduce(sum, 0) === 0) {
                 cb(true);
             } else {
                 cb(false);
